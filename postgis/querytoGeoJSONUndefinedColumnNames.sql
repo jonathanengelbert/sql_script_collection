@@ -1,3 +1,7 @@
+-- This script should return a query as a GeoJSON object. Properties are not
+-- defined, but rather take the names of the alias as prefix, and a number as
+-- suffix (f = f1, f1, f3)
+
 -- Returns rows as JSON
 SELECT row_to_json(fc) FROM (
   -- Creates "TYPE" level
@@ -15,13 +19,8 @@ SELECT row_to_json(fc) FROM (
                   ST_Transform(lg.geom, 4326)))::json As geometry,
                     -- Features to be included in the properties level of
                     -- geoJSON object
-		                row_to_json(
-							-- This subquery to cast the names of columns, so they are defined withing the geojson object "properties"
-							-- Select properties to include within the nested SELECT below
-							(SELECT l FROM (SELECT id, name ) AS l)) As properties 
+		                row_to_json((id, name )) As properties 
                       -- Target database for query
-                      FROM public.nyc_subway_stations As lg  
-		              -- Any extra filtering of target database here, optional
- 		              -- WHERE name LIKE '%Cortland%' 
+                      FROM public.nyc_subway_stations As lg
 	     ) As f
 ) As fc
