@@ -16,9 +16,9 @@ SELECT row_to_json(fc) FROM (
                     -- Features to be included in the properties level of
                     -- geoJSON object
 		                row_to_json(
-							-- This subquery to cast the names of columns, so they are defined withing the geojson object "properties"
-							-- Select properties to include within the nested SELECT below
-							(SELECT l FROM (SELECT id, name ) AS l)) As properties 
+					-- This subquery to cast the names of columns, so they are defined withing the geojson object "properties"
+					-- Select properties to include within the nested SELECT below
+					(SELECT l FROM (SELECT id, name ) AS l)) As properties 
                       -- Target database for query
                       FROM public.nyc_subway_stations As lg  
 		              -- Any extra filtering of target database here, optional
