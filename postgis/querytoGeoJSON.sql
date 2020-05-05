@@ -11,7 +11,7 @@ SELECT row_to_json(fc) FROM (
               -- geoJSON "feature" object 
               ST_AsGeoJSON(ST_AsText(
                   --Gets current geom, transforms into WGS84(4326), casts type
-                  --as geometry type
+                  --as json 
                   ST_Transform(lg.geom, 4326)))::json As geometry,
                     -- Features to be included in the properties level of
                     -- geoJSON object
